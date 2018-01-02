@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.gis.geoip2 import GeoIP2
 import geoip2.webservice
 
+import requests, json
 # def get_user_ip(request):
 #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 #     if x_forwarded_for:
@@ -22,6 +23,13 @@ class TestLocationView(TemplateView):
         # response = c.city('96.37.241.230')
         g = GeoIP2()
         x = g.city('96.37.241.230')
-        print(x)
+        zip = x['postal_code']
+
+        base_api_url = 'http://api.openweathermap.org/data/2.5/forecast?zip={}&APPID=5c255f05d7304e6c3f8ab54d953f5e5b'
+        req = requests.get(base_api_url.format(x['postal_code']))
+        data = json.loads(req.text)
+
+        temp = data['list'][0]['main']['temp']
+        print('Temp is {}'.format( temp * 9/5 - 459.67 ))
 
         return context
