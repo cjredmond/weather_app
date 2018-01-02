@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Checkin, Top, Bottom, Shoes
 
-# Register your models here.
+admin.site.register([Checkin, Top, Bottom, Shoes])

@@ -11,7 +11,14 @@
     <br>
 
     temp: {{ temp }}<br>
-    desc: {{ desc }}
+    desc: {{ desc }}<br>
+
+    <h5>Checkins</h5>
+    {% for check in checkins %}
+    {{ check.date }}<br>
+    {{ check.temp }}<br>
+    {{ check.desc }}<br>
+    {% endfor %}
 
   </body>
 </html>

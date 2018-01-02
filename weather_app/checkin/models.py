@@ -3,6 +3,8 @@ from django.db import models
 class Checkin(models.Model):
     user = models.ForeignKey('user_authentication.User', on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
+    temp = models.IntegerField()
+    desc = models.CharField(max_length=40)
 
     class Meta:
         unique_together = ('user', 'date')
