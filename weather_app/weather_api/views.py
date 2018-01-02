@@ -30,6 +30,8 @@ class TestLocationView(TemplateView):
         data = json.loads(req.text)
 
         temp = data['list'][0]['main']['temp']
-        print('Temp is {}'.format( temp * 9/5 - 459.67 ))
+        desc = data['list'][0]['weather'][0]['description']
+        context['temp'] = int( temp * 9/5 - 459.67 )
+        context['desc'] = desc
 
         return context
