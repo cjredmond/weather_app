@@ -7,5 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('user_authentication.urls')),
     url(r'^', include('weather_api.urls')),
+    url(r'^', include('checkin.urls')),
     # url(r'^test/$', TestLocationView.as_view(), name = 'test')
 ]
