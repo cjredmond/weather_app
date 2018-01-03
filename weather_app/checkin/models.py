@@ -9,8 +9,10 @@ class Checkin(models.Model):
     class Meta:
         unique_together = ('user', 'date')
 
+    @property
+
 class Clothes(models.Model):
-    checkin = models.ForeignKey(Checkin, on_delete=models.CASCADE)
+    checkin = models.OneToOneField(Checkin, on_delete=models.CASCADE)
     tank = models.BooleanField(default=False)
     t_shirt = models.BooleanField(default=False)
     long_sleeve_shirt = models.BooleanField(default=False)

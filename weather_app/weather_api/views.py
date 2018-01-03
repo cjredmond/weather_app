@@ -8,7 +8,7 @@ import geoip2.webservice
 import requests, json
 from datetime import datetime
 
-from checkin.models import Checkin
+from checkin.models import Checkin, Clothes
 
 
 
