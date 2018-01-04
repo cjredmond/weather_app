@@ -9,17 +9,28 @@
     This product includes GeoLite2 data created by MaxMind, available from
     <a href="http://www.maxmind.com">http://www.maxmind.com</a>.
     <br>
-
+    today: {{ date }}<br>
     temp: {{ temp }}<br>
     desc: {{ desc }}<br>
 
-    
+    {% if not checkin_today.clothes %}
+    <form class="" action="{% url 'clothes_create_view' %}" method="post">
+      {% csrf_token %}
+      {{ clothes_form.as_p }}
+      <input type="submit" name="" value="submit">
+    </form>
+    {% endif %}
 
     <h5>Checkins</h5>
-    {% for check in checkins %}
+    {% for check in checkins_archive %}
+    {{ check }}
     {{ check.date }}<br>
     {{ check.temp }}<br>
     {{ check.desc }}<br>
+    {% if not check.clothes %}
+      NO CLOTHES <br>
+    {% endif %}
+    <hr>
     {% endfor %}
 
   </body>

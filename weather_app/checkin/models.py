@@ -9,8 +9,6 @@ class Checkin(models.Model):
     class Meta:
         unique_together = ('user', 'date')
 
-    @property
-
 class Clothes(models.Model):
     checkin = models.OneToOneField(Checkin, on_delete=models.CASCADE)
     tank = models.BooleanField(default=False)

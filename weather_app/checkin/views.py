@@ -15,5 +15,7 @@ class ClothesCreateView(CreateView):
     template_name = 'checkin/clothes_create_view.html'
     def form_valid(self,form):
         instance = form.save(commit=False)
-        instance.checkin = self.request.user.checkin.last()
+        instance.checkin = self.request.user.checkin_set.all().last()
         return super().form_valid(form)
+    def get_success_url(self):
+        return reverse('test_location_view')
