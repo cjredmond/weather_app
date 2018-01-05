@@ -17,39 +17,31 @@ def weather_compare_tommorow(temp):
 
 def five_day_forecast(zip_code):
     ls = []
-    base_api_url = 'http://api.openweathermap.org/data/2.5/forecast?zip=29601&APPID=5c255f05d7304e6c3f8ab54d953f5e5b'
-    req = requests.get(base_api_url)
+    base_api_url = 'http://api.openweathermap.org/data/2.5/forecast?zip={}&APPID=5c255f05d7304e6c3f8ab54d953f5e5b'
+    req = requests.get(base_api_url.format(zip_code))
     data = json.loads(req.text)
     for x in data['list']:
         date = x['dt_txt'].split(' ')
         if datetime.now().date().strftime('%Y-%m-%d') == x['dt_txt'].split(' ')[0]:
             pass
         else:
-            if date[1] == '12:00:00':
+            if date[1] == '18:00:00':
                 ls.append(
                     {'date': x['dt_txt'].split(' ')[0],
                      'weather': x['weather'][0]['description'],
-                     'temp': x['main']['temp']}
+                     'temp': int(x['main']['temp'] * 9/5 - 459.67)}
                 )
-                # print(x['dt_txt'].split(' ')[0])
-                # print(x['weather'][0]['description'])
-                # print(x['main']['temp'])
+                print(x['main']['temp'])
+                print(int(x['main']['temp'] * 9/5 - 459.67))
                 # print('\n\n')
 
     return ls
 
+def predict_clothes():
+    x = Clothes.objects.last()
+
+
 #print(five_day_forecast())
-
-def test():
-    base_api_url = 'http://api.openweathermap.org/data/2.5/weather?zip=29601&APPID=5c255f05d7304e6c3f8ab54d953f5e5b'
-    req = requests.get(base_api_url)
-    data = json.loads(req.text)
-    print(int(data['main']['temp'] * 9/5 - 459.67))
-
-    # temp = data['main']['temp'] * 9/5 - 459.67)
-    # desc = data['list'][0]['weather'][0]['description']
-
-
 
 # def get_user_ip(request):
 #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -79,7 +71,7 @@ class TestLocationView(TemplateView):
         if not user_checkins.filter(date=datetime.now().date()):
             Checkin.objects.create(user=self.request.user,temp=temp,desc=desc)
 
-        five_day_forecast_data = five_day_forecast()
+        five_day_forecast_data = five_day_forecast(29601)
         return [temp, desc, user_checkins, five_day_forecast_data]
 
     def get_context_data(self):
@@ -94,5 +86,6 @@ class TestLocationView(TemplateView):
         context['temp'] = data_list[0]
         context['desc'] = data_list[1]
         context['checkins_archive'] = data_list[2].exclude(date=datetime.now().date())
+        context['five_day_forecast_data'] = data_list[3]
 
         return context

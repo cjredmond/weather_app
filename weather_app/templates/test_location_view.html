@@ -33,5 +33,10 @@
     <hr>
     {% endfor %}
 
+    {% for day in five_day_forecast_data %}
+      <h4>{{ day.date }}</h4>
+      temp: {{ day.temp }} weather: {{ day.weather }}<br>
+    {% endfor %}
+
   </body>
 </html>
