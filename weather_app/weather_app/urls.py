@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^', include('user_authentication.urls')),
     url(r'^', include('weather_api.urls')),
     url(r'^', include('checkin.urls')),
+    url(r'^', include('clothes.urls')),
     # url(r'^test/$', TestLocationView.as_view(), name = 'test')
 ]

@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'weather_api',
     'user_authentication',
     'checkin',
+    'clothes',
 ]
 
 MIDDLEWARE = [
